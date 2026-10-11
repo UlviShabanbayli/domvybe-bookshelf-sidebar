@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Library · SHELF</title>
+  <meta name="description" content="SHELF · Library: a course website whose sidebar is a walnut bookshelf. Pick a book and it opens in the sidebar.">
+  <meta name="color-scheme" content="light">
+  <link rel="preload" href="../shared/fonts/Inter-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../shared/fonts/cormorant-600.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../shared/base.css">
+  <link rel="stylesheet" href="library.css">
+  <script>try { const t = localStorage.getItem('shelf.library.theme'); document.documentElement.dataset.theme = t === 'dark' ? 'dark' : 'light'; /* the concept's look by default; dark only from the toggle */ } catch (e) { document.documentElement.dataset.theme = 'light'; }</script>
+</head>
+<body>
+<a class="skip" href="#lesson">Skip to lesson</a>
+<div class="app" id="app" data-layout="desk">
+
+  <nav class="case" aria-label="Course shelf">
+    <h2 class="sr-only" id="shelf-title">Courses</h2>
+    <p class="sr-only" id="shelf-help">Arrow keys move between books. Enter opens a book. Alt with an arrow key moves the book along the shelf.</p>
+    <div class="case__scene" id="scene"></div>
+    <div class="case__light" aria-hidden="true"><i class="lamp"></i></div>
+  </nav>
+
+  <aside class="side" aria-label="Course contents">
+    <header class="side__top">
+      <a class="logo" href="../" aria-label="SHELF home">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 5.5c0-1 .8-1.6 1.8-1.4L15 5.8v22.4l-7.6-1.9A1.8 1.8 0 0 1 6 24.6V5.5Z" fill="currentColor"/><path d="M26 5.5c0-1-.8-1.6-1.8-1.4L17 5.8v22.4l7.6-1.9a1.8 1.8 0 0 0 1.4-1.7V5.5Z" fill="currentColor" opacity=".82"/></svg>
+        <span class="logo__word">Library</span>
+      </a>
+      <div class="side__tools">
+        <button class="ib" type="button" id="search-toggle" aria-label="Search courses" aria-expanded="false" aria-controls="search-row"></button>
+        <button class="ib" type="button" id="rail" aria-label="Collapse shelf to a rail" aria-pressed="false"></button>
+        <button class="ib" type="button" id="theme" aria-label="Evening lamp" aria-pressed="false"></button>
+        <button class="ib" type="button" id="add-top" aria-label="New course"></button>
+      </div>
+    </header>
+
+    <div class="search" id="search-row" role="search">
+      <label class="sr-only" for="q">Search courses and lessons</label>
+      <span class="search__i" aria-hidden="true"></span>
+      <input id="q" type="search" placeholder="Search…" autocomplete="off" spellcheck="false" aria-describedby="search-count">
+      <button class="search__x" type="button" id="q-clear" aria-label="Clear search" hidden></button>
+      <span class="sr-only" id="search-count"></span>
+    </div>
+
+    <div class="tome-wrap" id="tome-wrap">
+      <div class="tome" id="tome" hidden>
+        <div class="tome__body" id="tome-body">
+          <div class="tome__back"></div>
+          <div class="tome__block"><i></i></div>
+          <div class="tome__spine"><span class="tome__spine-t"></span></div>
+          <section class="tome__page" id="tome-page" aria-labelledby="tome-title">
+            <h2 class="tome__title" id="tome-title"></h2>
+            <p class="tome__meta" id="tome-meta"></p>
+            <div class="tree-host" id="tree-host"></div>
+            <span class="tome__more" aria-hidden="true"></span>
+          </section>
+          <div class="tome__front" id="tome-front">
+            <div class="tome__out"><span class="tome__foil"></span></div>
+            <div class="tome__in"></div>
+          </div>
+          <i class="tome__ribbon" aria-hidden="true"></i>
+        </div>
+      </div>
+      <p class="side__empty" id="side-empty" hidden>Pick a book from the shelf to open its chapters.</p>
+    </div>
+
+    <footer class="side__foot">
+      <div class="mover" id="mover" role="group" aria-label="Shelf position">
+        <span class="mover__l" id="mover-label">Shelf position</span>
+        <button class="ib ib--s" type="button" id="move-prev" aria-label="Move book left on the shelf"></button>
+        <button class="ib ib--s" type="button" id="move-next" aria-label="Move book right on the shelf"></button>
+      </div>
+      <button class="add" type="button" id="add"><span class="add__i" aria-hidden="true"></span>New course</button>
+    </footer>
+  </aside>
+
+  <main class="main" id="lesson" tabindex="-1">
+    <div class="progress" id="progress">
+      <div class="progress__row"><span id="progress-label">Course progress</span><span id="progress-count" class="progress__n">0 / 0</span></div>
+      <div class="progress__bar" role="progressbar" aria-labelledby="progress-label" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0" id="progress-bar"><i id="progress-fill"></i></div>
+    </div>
+    <article class="lesson" id="article" aria-live="off"></article>
+  </main>
+</div>
+
+<section class="sheet" id="sheet" aria-label="Chapters">
+  <div class="sheet__handle" id="sheet-handle">
+    <button class="sheet__grip" type="button" id="sheet-grip" aria-controls="sheet-body"><i class="sheet__bar" aria-hidden="true"></i><span class="sheet__t"><strong id="sheet-title"></strong><span id="sheet-meta"></span></span></button>
+    <button class="ib sheet__x" type="button" id="sheet-x" aria-label="Lower the chapters sheet"></button>
+  </div>
+  <div class="sheet__body" id="sheet-body"></div>
+</section>
+
+<div class="pop" id="pop" role="dialog" aria-modal="false" aria-labelledby="pop-t" hidden>
+  <form id="pop-form" autocomplete="off">
+    <h2 class="pop__t" id="pop-t">New course</h2>
+    <label class="pop__l" for="pop-name">Title on the spine</label>
+    <input class="pop__in" id="pop-name" maxlength="24" required>
+    <div class="pop__row">
+      <button class="btn btn--ghost" type="button" id="pop-cancel">Cancel</button>
+      <button class="btn" type="submit">Add to shelf</button>
+    </div>
+  </form>
+</div>
+
+<div class="sr-only" aria-live="polite" id="live"></div>
+<div class="toast" id="toast" role="status"></div>
+<script type="module" src="library.js"></script>
+</body>
+</html>

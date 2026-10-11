@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Notebooks · SHELF</title>
+  <meta name="description" content="SHELF · Nordic: a calm notes app whose sidebar is a light-oak floating shelf of notebooks.">
+  <meta name="color-scheme" content="light">
+  <link rel="preload" href="../shared/fonts/Inter-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../shared/base.css">
+  <link rel="stylesheet" href="nordic.css">
+  <script>try { const t = localStorage.getItem('shelf.nordic.theme'); document.documentElement.dataset.theme = t === 'dark' ? 'dark' : 'light'; /* the concept's look by default; dark only from the toggle */ } catch (e) { document.documentElement.dataset.theme = 'light'; }</script>
+</head>
+<body>
+<a class="skip" href="#editor">Skip to the note</a>
+<div class="app" id="app" data-layout="desk">
+
+  <nav class="wall" aria-label="Notebook shelf">
+    <header class="wall__top">
+      <a class="wall__title" href="../" aria-label="SHELF home, Notebooks">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 9c-2.6-2-6.5-2.7-11-2v17c4.5-.7 8.4 0 11 2 2.6-2 6.5-2.7 11-2V7c-4.5-.7-8.4 0-11 2Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M16 9v17" stroke="currentColor" stroke-width="2.2"/></svg>
+        <span>Notebooks</span>
+      </a>
+      <div class="wall__tools">
+        <button class="ib" type="button" id="search-toggle" aria-label="Search notebooks" aria-expanded="false" aria-controls="search-row"></button>
+        <button class="ib" type="button" id="theme" aria-label="Dark walnut" aria-pressed="false"></button>
+        <button class="ib" type="button" id="add-top" aria-label="New notebook"></button>
+      </div>
+    </header>
+    <div class="search" id="search-row" role="search">
+      <label class="sr-only" for="q">Search notebooks and notes</label>
+      <span class="search__i" aria-hidden="true"></span>
+      <input id="q" type="search" placeholder="Search" autocomplete="off" spellcheck="false" aria-describedby="search-count">
+      <button class="search__x" type="button" id="q-clear" aria-label="Clear search" hidden></button>
+      <span class="sr-only" id="search-count"></span>
+    </div>
+    <p class="sr-only" id="shelf-help">Arrow keys move between notebooks. Enter opens one. Alt with an arrow key moves it along the shelf.</p>
+    <div class="wall__scene" id="scene">
+      <div class="decor" aria-hidden="true">
+        <div class="upright" id="upright"></div>
+        <div class="bookend" id="bookend"><svg viewBox="0 0 60 150" preserveAspectRatio="none"><defs><linearGradient id="brass" x1="0" x2="1"><stop offset="0" stop-color="#8a6526"/><stop offset=".3" stop-color="#e9c97e"/><stop offset=".55" stop-color="#c49a4a"/><stop offset="1" stop-color="#7a561d"/></linearGradient></defs><path d="M8 150V30a22 22 0 0 1 44 0v120h-9V30a13 13 0 0 0-26 0v120Z" fill="url(#brass)"/><rect x="0" y="144" width="60" height="6" rx="2" fill="#a57d36"/></svg></div>
+        <div class="plant" id="plant"><svg viewBox="0 0 120 150"><defs>
+          <linearGradient id="pot" x1="0" x2="1"><stop offset="0" stop-color="#b85d3b"/><stop offset=".35" stop-color="#d9825c"/><stop offset="1" stop-color="#9a4a2c"/></linearGradient>
+          <linearGradient id="leafA" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#4f7a5c"/><stop offset="1" stop-color="#9fc6a2"/></linearGradient>
+          <linearGradient id="leafB" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#3f6a4c"/><stop offset="1" stop-color="#86b28d"/></linearGradient></defs>
+          <g transform="translate(60 74)">
+            <path d="M0 6 C-15 -12 -13 -38 0 -54 C13 -38 15 -12 0 6Z" fill="url(#leafA)"/>
+            <path d="M0 6 C-15 -12 -13 -38 0 -54 C13 -38 15 -12 0 6Z" fill="url(#leafB)" transform="rotate(-28)"/>
+            <path d="M0 6 C-15 -12 -13 -38 0 -54 C13 -38 15 -12 0 6Z" fill="url(#leafB)" transform="rotate(28)"/>
+            <path d="M0 6 C-14 -10 -12 -32 0 -46 C12 -32 14 -10 0 6Z" fill="url(#leafA)" transform="rotate(-55)"/>
+            <path d="M0 6 C-14 -10 -12 -32 0 -46 C12 -32 14 -10 0 6Z" fill="url(#leafA)" transform="rotate(55)"/>
+            <path d="M0 6 C-13 -9 -11 -26 0 -38 C11 -26 13 -9 0 6Z" fill="url(#leafB)" transform="rotate(-80)"/>
+            <path d="M0 6 C-13 -9 -11 -26 0 -38 C11 -26 13 -9 0 6Z" fill="url(#leafB)" transform="rotate(80)"/>
+            <path d="M0 4 C-10 -7 -9 -20 0 -30 C9 -20 10 -7 0 4Z" fill="#b9dbb9" transform="rotate(-12)"/>
+            <path d="M0 4 C-10 -7 -9 -20 0 -30 C9 -20 10 -7 0 4Z" fill="#a9cfab" transform="rotate(14)"/>
+          </g>
+          <path d="M22 78h76l-8 70H30Z" fill="url(#pot)"/><rect x="18" y="72" width="84" height="14" rx="3" fill="#c96d48"/><rect x="18" y="72" width="84" height="4" rx="2" fill="#e39a78" opacity=".7"/>
+        </svg></div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="list" aria-labelledby="nb-label">
+    <header class="list__top">
+      <button class="ib" type="button" id="rail" aria-label="Collapse shelf to a rail" aria-pressed="false"></button>
+      <div class="mover" role="group" aria-label="Shelf position">
+        <span class="sr-only" id="mover-label"></span>
+        <button class="ib ib--s" type="button" id="move-prev" aria-label="Move notebook left on the shelf"></button>
+        <button class="ib ib--s" type="button" id="move-next" aria-label="Move notebook right on the shelf"></button>
+      </div>
+      <button class="ib" type="button" id="new-note" aria-label="New note"></button>
+    </header>
+    <label class="sr-only" id="nb-label" for="nb-name">Notebook name</label>
+    <input class="nb-name" id="nb-name" maxlength="24" autocomplete="off" spellcheck="false">
+    <div class="notes-host" id="notes-host"><ul class="notes" id="notes" aria-labelledby="nb-label"></ul></div>
+  </section>
+
+  <main class="editor" id="editor" tabindex="-1">
+    <header class="editor__top">
+      <button class="back" type="button" id="back"><span class="back__i" aria-hidden="true"></span><span>Notes</span></button>
+      <div class="editor__tools">
+        <button class="ib" type="button" id="edit" aria-label="Edit title"></button>
+        <button class="ib" type="button" id="del" aria-label="Delete note"></button>
+        <button class="ib" type="button" id="more" aria-label="More actions" aria-haspopup="menu" aria-expanded="false" aria-controls="menu"></button>
+      </div>
+    </header>
+    <div class="note" id="note">
+      <label class="sr-only" for="ed-title">Note title</label>
+      <textarea class="ed-title" id="ed-title" rows="1" placeholder="Untitled" spellcheck="true"></textarea>
+      <p class="ed-date"><span id="ed-date"></span><span class="ed-saved" id="ed-saved" aria-hidden="true">Saved</span></p>
+      <label class="sr-only" for="ed-body">Note text</label>
+      <textarea class="ed-body" id="ed-body" placeholder="Start writing…" spellcheck="true"></textarea>
+    </div>
+    <div class="note-empty" id="note-empty" hidden>
+      <p>No notes in this notebook yet.</p>
+      <button class="btn" type="button" id="empty-new">New note</button>
+    </div>
+    <ul class="menu" id="menu" role="menu" aria-labelledby="more" hidden></ul>
+  </main>
+</div>
+
+<section class="sheet" id="sheet" aria-label="Notes">
+  <div class="sheet__handle" id="sheet-handle">
+    <button class="sheet__grip" type="button" id="sheet-grip" aria-controls="sheet-body"><i class="sheet__bar" aria-hidden="true"></i><span class="sheet__t"><strong id="sheet-title"></strong><span id="sheet-meta"></span></span></button>
+    <button class="ib sheet__x" type="button" id="sheet-x" aria-label="Lower the notes sheet"></button>
+  </div>
+  <div class="sheet__body" id="sheet-body"></div>
+  <button class="fab" type="button" id="fab" aria-label="New note"></button>
+</section>
+
+<div class="pop" id="pop" role="dialog" aria-modal="false" aria-labelledby="pop-t" hidden>
+  <form id="pop-form" autocomplete="off">
+    <h2 class="pop__t" id="pop-t">New notebook</h2>
+    <label class="pop__l" for="pop-name">Name</label>
+    <input class="pop__in" id="pop-name" maxlength="24" required>
+    <fieldset class="swatches">
+      <legend class="pop__l">Colour</legend>
+      <div class="swatches__row" id="swatches" role="radiogroup" aria-label="Colour"></div>
+    </fieldset>
+    <div class="pop__row">
+      <button class="btn btn--ghost" type="button" id="pop-cancel">Cancel</button>
+      <button class="btn" type="submit">Add to shelf</button>
+    </div>
+  </form>
+</div>
+
+<div class="sr-only" aria-live="polite" id="live"></div>
+<div class="toast" id="toast" role="status"></div>
+<script type="module" src="nordic.js"></script>
+</body>
+</html>

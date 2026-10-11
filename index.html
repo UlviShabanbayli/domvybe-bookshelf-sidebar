@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>SHELF · Bookshelf navigation</title>
+  <meta name="description" content="SHELF: a sidebar that is a bookshelf. Two looks: Library (walnut, cloth and gold foil) and Nordic (light oak, pastel notebooks).">
+  <meta name="color-scheme" content="light">
+  <link rel="stylesheet" href="shared/base.css">
+  <style>
+    :root { --ink: #17181c; --ink-2: #4b4f58; --muted: #6f7380; --bg: #eceae6; --card: #ffffff; --ring: #2563eb; }
+    body { overflow: auto; background: radial-gradient(ellipse 80% 60% at 20% 0%, #f7f5f1, transparent 70%), var(--bg); color: var(--ink); min-height: 100%; }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: clamp(28px, 6vw, 72px) 16px 48px; }
+    h1 { font-size: clamp(32px, 5.4vw, 64px); line-height: 1.02; letter-spacing: -.035em; font-weight: 800; }
+    h1 span { font-weight: 450; color: var(--ink-2); }
+    .lede { margin-top: 14px; max-width: 58ch; font-size: clamp(16px, 1.6vw, 18px); line-height: 1.6; color: var(--ink-2); }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: clamp(16px, 2.4vw, 28px); margin-top: clamp(28px, 4vw, 48px); }
+    .card { display: flex; flex-direction: column; border-radius: 18px; background: var(--card); color: inherit; text-decoration: none; overflow: hidden;
+      box-shadow: 0 1px 0 rgba(0,0,0,.04), 0 18px 40px -18px rgba(40, 30, 20, .35); transition: transform .35s cubic-bezier(.2, 1.2, .4, 1), box-shadow .3s; }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 1px 0 rgba(0,0,0,.04), 0 28px 50px -20px rgba(40, 30, 20, .45); }
+    .card:focus-visible { outline: 3px solid var(--ring); outline-offset: 4px; border-radius: 18px; }
+    .card img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: left top; background: #ddd; }
+    .card__b { padding: 18px 20px 22px; }
+    .card h2 { font-size: 22px; letter-spacing: -.02em; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .card h2 svg { width: 22px; height: 22px; flex: none; transition: transform .3s; }
+    .card:hover h2 svg { transform: translateX(4px); }
+    .card p { margin-top: 6px; color: var(--ink-2); line-height: 1.55; font-size: 15.5px; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+    .tags li { font-size: 12.5px; padding: 4px 10px; border-radius: 99px; background: #f1efeb; color: var(--ink-2); }
+    footer { margin-top: 36px; font-size: 13.5px; color: var(--muted); }
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <h1>SHELF <span>— bookshelf navigation</span></h1>
+  <p class="lede">A sidebar that is a bookshelf. Pick a book and it comes off the shelf; its chapters or notes become the navigation. Search dims the shelf, new books slide in, and you can drag them into a new order.</p>
+  <div class="grid">
+    <a class="card" href="library/">
+      <img src="thumbs/library.webp" width="960" height="600" alt="Library: a walnut bookcase with cloth spines and gold titles; the Layout book lies open in the sidebar beside a lesson called Grids that breathe.">
+      <div class="card__b">
+        <h2>Library <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></h2>
+        <p>An online course site. Walnut bookcase, cloth spines, gold foil. The active book flies out and opens in the sidebar; lessons tick off as you finish them.</p>
+        <ul class="tags"><li>3D book opening</li><li>Progress saved</li><li>Evening lamp mode</li></ul>
+      </div>
+    </a>
+    <a class="card" href="nordic/">
+      <img src="thumbs/nordic.webp" width="960" height="600" alt="Nordic: pastel notebooks on a light-oak floating shelf with a brass bookend and a small plant; the Work notebook's notes list beside an open note.">
+      <div class="card__b">
+        <h2>Nordic <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></h2>
+        <p>A calm notes app. Light-oak floating shelf, matte pastel notebooks. The active notebook slides out; its notes are editable and saved as you type.</p>
+        <ul class="tags"><li>Editable notes</li><li>Colour picker</li><li>Dark walnut mode</li></ul>
+      </div>
+    </a>
+  </div>
+  <footer>DOMVYBE · DV47 SHELF. Vanilla HTML, CSS and JavaScript. Keyboard: arrow keys walk the shelf, Alt + arrow moves a book.</footer>
+</main>
+</body>
+</html>
